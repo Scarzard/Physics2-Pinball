@@ -25,5 +25,8 @@ public:
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* rick;
+
+	SDL_Texture* map;
+
 	uint bonus_fx;
 };
