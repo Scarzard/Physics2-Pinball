@@ -15,4 +15,22 @@ public:
 
 public:
 
+	//Textures
+	SDL_Texture* ball;
+	SDL_Texture* flipper;
+
+	//Player attributes
+	uint score = 0;
+	uint tries = 5;
+
+	//Flippers
+	PhysBody* leftFlipper;
+	PhysBody* leftPivot;
+	b2RevoluteJoint* leftJoint;
+
+	PhysBody* rightFlipper;
+	PhysBody* rightPivot;
+	b2RevoluteJoint* rightJoint;
+
+
 };
