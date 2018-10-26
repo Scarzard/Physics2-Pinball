@@ -77,13 +77,15 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, b2BodyType type)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float angle, b2BodyType type)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float angle)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
+	b->SetTransform(body.position, angle);
+
 	b2PolygonShape box;
 	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
 
