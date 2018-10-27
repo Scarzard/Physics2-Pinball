@@ -24,24 +24,26 @@ bool ModulePlayer::Start()
 	//Flippers
 
 	b2RevoluteJointDef joint;
+	//-----------THE PROBLEM MUST BE THAT JOINT NEEDS TO BE INICIALIZED AND THE JOINT AND FLIPPERBODY ARE CREATED IN A WRONG WAY------------ //
+	//joint.Initialize(bodyA, bodyB, leftFlipper->body->GetWorldCenter())
 
 
-	leftFlipper = App->physics->CreateRectangle(150, 485, 48, 30, 32 * DEGTORAD);
-	leftPivot = App->physics->CreateCircle(150, 485, 15, b2_staticBody);
-	leftFlipper->body->SetGravityScale(0.0f);
+	leftFlipper = App->physics->CreateRectangle(150, 485, 48, 30, 20 * DEGTORAD);   // Creates flipper to location
+	leftPivot = App->physics->CreateCircle(150, 485, 7, b2_staticBody);				// Pivot is needed to rotate flipper
+	leftFlipper->body->SetGravityScale(20.0f);
 
 	joint.bodyA = leftFlipper->body;
 	joint.bodyB = leftPivot->body;
 
-	joint.localAnchorA.Set(PIXEL_TO_METERS(-25), 0);		// Set the pivot point of the rectangle where the center of the circle is
-	joint.localAnchorB.Set(0, 0);						// Set the pivot point of the circle on its center
+	joint.localAnchorA.Set(PIXEL_TO_METERS(-15), PIXEL_TO_METERS(-4));		// Set pivot position correctly
+	joint.localAnchorB.Set(0, 0);						
 	joint.collideConnected = false;
 
-	joint.upperAngle = 35 * DEGTORAD;			// Angle limits
+	joint.upperAngle = 35 * DEGTORAD;		//Sets angle limits for the flipper
 	joint.lowerAngle = -35 * DEGTORAD;
 	joint.enableLimit = true;
 
-	joint.motorSpeed = 1500.0f * DEGTORAD;		// Motor
+	joint.motorSpeed = 1500.0f * DEGTORAD;	
 	joint.maxMotorTorque = 1500;
 	joint.enableMotor = false;
 
@@ -74,6 +76,14 @@ update_status ModulePlayer::Update()
 	{
 		leftJoint->EnableMotor(false);
 	}
+
+
+
+	int posX, posY;
+
+
+	leftFlipper->GetPosition(posX, posY);
+	App->renderer->Blit(flipper, posX, posY, NULL, 1.0f, leftFlipper->GetRotation());
 
 	return UPDATE_CONTINUE;
 }
