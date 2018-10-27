@@ -25,6 +25,7 @@ bool ModuleSceneIntro::Start()
 
 	map = App->textures->Load("Assets/Map.png");
 
+	Colliders_Draw();
 
 	return ret;
 }
@@ -137,4 +138,113 @@ update_status ModuleSceneIntro::Update()
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	App->audio->PlayFx(bonus_fx);
+}
+
+void ModuleSceneIntro::Colliders_Draw()
+{
+	int nugget_right[16] = {
+		279, 400,
+		256, 442,
+		258, 450,
+		267, 449,
+		276, 439,
+		285, 422,
+		289, 403,
+		284, 399
+	};
+	nugget_right_ = App->physics->CreateChain(0, 0, nugget_right, 16);
+
+	int nugget_left[18] = {
+		142, 123,
+		164, 165,
+		162, 173,
+		156, 174,
+		146, 166,
+		138, 152,
+		133, 137,
+		132, 126,
+		142, 123
+	};
+	nugget_left_ = App->physics->CreateChain(0, 0, nugget_left, 18);
+
+	int LargeNugget_right[34] = {
+		38, 192,
+		52, 180,
+		62, 167,
+		70, 154,
+		76, 135,
+		78, 123,
+		80, 119,
+		86, 120,
+		87, 130,
+		86, 147,
+		82, 165,
+		73, 184,
+		61, 199,
+		51, 206,
+		44, 206,
+		38, 200,
+		38, 193
+	};
+	large_nugget_right_ = App->physics->CreateChain(0, 0, LargeNugget_right, 34);
+
+	int LargeNugget_left[34] = {
+		100, 122,
+		100, 142,
+		103, 162,
+		109, 178,
+		119, 194,
+		134, 207,
+		141, 208,
+		147, 201,
+		148, 193,
+		140, 185,
+		125, 169,
+		115, 152,
+		110, 137,
+		108, 126,
+		108, 121,
+		104, 118,
+		100, 122
+	};
+	large_nugget_left_ = App->physics->CreateChain(0, 0, LargeNugget_left, 34);
+
+	int mid_ball[18] = {
+		214, 173,
+		205, 173,
+		200, 177,
+		200, 189,
+		204, 194,
+		216, 194,
+		221, 189,
+		221, 178,
+		214, 173
+	};
+	mid_ball_ = App->physics->CreateChain(0, 0, mid_ball, 18);
+
+	int left_ball[18] = {
+		163, 208,
+		158, 214,
+		158, 224,
+		164, 229,
+		173, 229,
+		179, 224,
+		179, 214,
+		173, 208,
+		163, 208
+	};
+	left_ball_ = App->physics->CreateChain(0, 0, left_ball, 18);
+
+	int right_ball[18] = {
+		14, 207,
+		8, 213,
+		8, 223,
+		13, 229,
+		23, 229,
+		29, 224,
+		29, 213,
+		24, 207,
+		14, 207
+	};
+	right_ball_ = App->physics->CreateChain(0, 0, right_ball, 18);
 }

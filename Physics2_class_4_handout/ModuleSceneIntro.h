@@ -16,10 +16,19 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void Colliders_Draw();
 
 public:
 	p2List<PhysBody*> pinball;
 
+	//Colliders
+	PhysBody* nugget_right_;
+	PhysBody* nugget_left_;
+	PhysBody* large_nugget_right_;
+	PhysBody* large_nugget_left_;
+	PhysBody* mid_ball_;
+	PhysBody* left_ball_;
+	PhysBody* right_ball_;
 
 	SDL_Texture* map;
 
