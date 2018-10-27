@@ -29,6 +29,8 @@ public:
 	PhysBody* mid_ball_;
 	PhysBody* left_ball_;
 	PhysBody* right_ball_;
+	PhysBody* map_border_;
+	PhysBody* Collider_in_Spawn_;
 
 	SDL_Texture* map;
 
