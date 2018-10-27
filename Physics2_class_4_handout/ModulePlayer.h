@@ -40,6 +40,8 @@ public:
 	PhysBody* launcherPivot;
 	b2PrismaticJoint* launcherJoint;
 
+	b2Vec2 axis;
+
 private:
 
 	PhysBody * ball;

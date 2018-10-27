@@ -22,6 +22,8 @@ bool ModulePlayer::Start()
 	flipper = App->textures->Load("Assets/flippers.png");
 	flipper2 = App->textures->Load("Assets/flippers.png");
 
+	b2Vec2 axis(0.0f, 1.0f);
+
 	//Left flipper
 
 	b2RevoluteJointDef joint;
@@ -73,25 +75,28 @@ bool ModulePlayer::Start()
 
 
 	// LAUNCHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//b2PrismaticJointDef joint3;
-	//launcherBody = App->physics->CreateRectangle(388, 422, 18, 28, 0, b2_dynamicBody);
-	//launcherPivot = App->physics->CreateRectangle(100, 100, 18, 10, 0, b2_staticBody);
+	b2PrismaticJointDef joint2;
+	launcherBody = App->physics->CreateRectangle(403, 440, 15, 5, 0, b2_dynamicBody);
+	launcherPivot = App->physics->CreateRectangle(395, 440, 15, 1, 0, b2_staticBody);
 
-	//joint3.bodyA = launcherBody->body;
-	//joint3.bodyA = launcherPivot->body;
+	joint2.bodyA = launcherBody->body;
+	joint2.bodyB = launcherPivot->body;
 
-	//joint3.Initialize(joint3.bodyA, joint3.bodyB, launcherBody->body->GetWorldCenter(), );
+	joint2.Initialize(joint2.bodyA, joint2.bodyB, launcherBody->body->GetWorldCenter(), axis);
 
-	//joint3.collideConnected = false;
+	joint2.localAnchorA.Set(0, 0);
+	joint2.localAnchorB.Set(0, 0);
+	joint2.collideConnected = false;
 
-	//joint3.enableLimit = true;
-	//joint3.upperTranslation = PIXEL_TO_METERS(30);
-	//joint3.lowerTranslation = 0;
+	joint2.upperTranslation = PIXEL_TO_METERS(100);
+	joint2.lowerTranslation = 0;
+	joint2.enableLimit = true;
+	
+	joint2.enableMotor = false;
+	joint2.motorSpeed = 5000;
+	joint2.maxMotorForce = 500;
 
-	//joint3.motorSpeed = 2500.0f;
-	//joint3.maxMotorForce = 750;
-
-	//launcherJoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&joint3);
+	launcherJoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&joint2);
 
 
 	CreateBall();
@@ -138,6 +143,15 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{
 		rightJoint->EnableMotor(false);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		launcherJoint->EnableMotor(true);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	{
+		launcherJoint->EnableMotor(false);
 	}
 
 	//Blit left flipper
