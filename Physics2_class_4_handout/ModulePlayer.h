@@ -21,6 +21,7 @@ public:
 	//Textures
 	SDL_Texture* ball_texture;
 	SDL_Texture* flipper;
+	SDL_Texture* flipper2;
 
 	//Player attributes
 	uint score = 0;
