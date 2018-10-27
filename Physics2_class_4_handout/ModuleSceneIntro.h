@@ -23,7 +23,9 @@ public:
 
 	//Colliders
 	PhysBody* nugget_right_;
+	PhysBody* bouncer_right_;
 	PhysBody* nugget_left_;
+	PhysBody* bouncer_left_;
 	PhysBody* large_nugget_right_;
 	PhysBody* large_nugget_left_;
 	PhysBody* mid_ball_;
@@ -31,6 +33,7 @@ public:
 	PhysBody* right_ball_;
 	PhysBody* map_border_;
 	PhysBody* Collider_in_Spawn_;
+
 
 	SDL_Texture* map;
 

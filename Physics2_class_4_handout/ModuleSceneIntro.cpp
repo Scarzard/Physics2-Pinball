@@ -154,6 +154,15 @@ void ModuleSceneIntro::Colliders_Draw()
 	};
 	nugget_right_ = App->physics->CreateChain(0, 0, nugget_right, 16);
 
+	//bouncer_right
+	int bouncer_right[8] = {
+		277, 401,
+		258, 440,
+		260, 441,
+		279, 402
+	};
+	bouncer_right_ = App->physics->CreateChain(0, 0, bouncer_right, 8, 2.0f);
+
 	int nugget_left[20] = {
 		133, 403,
 		134, 419,
@@ -167,6 +176,14 @@ void ModuleSceneIntro::Colliders_Draw()
 		136, 400
 	};
 	nugget_left_ = App->physics->CreateChain(0, 0, nugget_left, 20);
+
+	int bouncer_left[8] = {
+		144, 402,
+		163, 440,
+		161, 441,
+		142, 403
+	};
+	bouncer_left_ = App->physics->CreateChain(0, 0, bouncer_left, 8, 2.0f);
 
 	int LargeNugget_right[28] = {
 		287, 481,
@@ -215,7 +232,7 @@ void ModuleSceneIntro::Colliders_Draw()
 		215, 172,
 		208, 172
 	};
-	mid_ball_ = App->physics->CreateChain(0, 0, mid_ball, 18);
+	mid_ball_ = App->physics->CreateChain(0, 0, mid_ball, 18, 2.0f);
 
 	int left_ball[18] = {
 		164, 209,
@@ -228,7 +245,7 @@ void ModuleSceneIntro::Colliders_Draw()
 		173, 209,
 		166, 209
 	};
-	left_ball_ = App->physics->CreateChain(0, 0, left_ball, 18);
+	left_ball_ = App->physics->CreateChain(0, 0, left_ball, 18, 2.0f);
 
 	int right_ball[18] = {
 		248, 208,
@@ -241,7 +258,7 @@ void ModuleSceneIntro::Colliders_Draw()
 		257, 208,
 		250, 208
 	};
-	right_ball_ = App->physics->CreateChain(0, 0, right_ball, 18);
+	right_ball_ = App->physics->CreateChain(0, 0, right_ball, 18, 2.0f);
 
 	int Map_Border[208] = {
 	252, 81,
