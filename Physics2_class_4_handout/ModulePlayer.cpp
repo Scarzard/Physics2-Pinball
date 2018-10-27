@@ -5,6 +5,8 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModuleSceneIntro.h"
+#include "ModuleAudio.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -21,6 +23,8 @@ bool ModulePlayer::Start()
 	ball_texture = App->textures->Load("Assets/ball.png");
 	flipper = App->textures->Load("Assets/flippers.png");
 	flipper2 = App->textures->Load("Assets/flippers.png");
+
+	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
 
 	b2Vec2 axis(0.0f, 1.0f);
 
@@ -121,6 +125,19 @@ void ModulePlayer::CreateBall()
 	ball->listener = this;
 }
 
+void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB) 
+{
+	for (int i = 0; i < 2; i++)//Loop to check collision with triangles
+	{
+		if (bodyB == App->scene_intro->nugget_bouncers_sensors[i])
+		{
+			App->scene_intro->touch_nuggets[i] = true;
+		}
+	}
+}
+
+
+
 // Update: draw background
 update_status ModulePlayer::Update()
 {
@@ -129,6 +146,7 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 	{
 		leftJoint->EnableMotor(true);
+		App->audio->PlayFx(flippers_FX);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
@@ -139,6 +157,7 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
 		rightJoint->EnableMotor(true);
+		App->audio->PlayFx(flippers_FX);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{

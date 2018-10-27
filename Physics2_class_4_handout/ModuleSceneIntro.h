@@ -34,6 +34,10 @@ public:
 	PhysBody* map_border_;
 	PhysBody* Collider_in_Spawn_;
 
+	//sensors
+	PhysBody* nugget_bouncers_sensors[2];
+	bool touch_nuggets[2] = {false, false};
+
 
 	SDL_Texture* map;
 
