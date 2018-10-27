@@ -3,6 +3,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Globals.h"
+#include "Application.h"
 
 class PhysBody;
 
@@ -36,10 +37,12 @@ public:
 
 	//sensors
 	PhysBody* nugget_bouncers_sensors[2];
-	bool touch_nuggets[2] = {false, false};
+	bool touch_nuggets[2] = { false, false };
 
 
 	SDL_Texture* map;
+	SDL_Texture* arrow;
+	int arrowPosY[10] = { 482 ,464 ,446 ,428 ,410 ,392 ,374 ,356 ,338 ,320 };
 
 	uint bonus_fx;
 };

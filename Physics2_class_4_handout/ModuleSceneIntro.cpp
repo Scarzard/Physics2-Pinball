@@ -24,6 +24,8 @@ bool ModuleSceneIntro::Start()
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	map = App->textures->Load("Assets/Map.png");
+	arrow = App->textures->Load("Assets/arrow.png");
+
 
 	Colliders_Draw();
 
@@ -43,7 +45,41 @@ update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map, 0, 0, NULL, 1.0f);
 
+	//Arrows
+	//Central
+	//App->renderer->Blit(arrow, 204, 482, NULL, 1.0f);
+	//App->renderer->Blit(arrow, 204, 464, NULL, 1.0f);
+	//App->renderer->Blit(arrow, 204, 446, NULL, 1.0f);
+	//App->renderer->Blit(arrow, 204, 428, NULL, 1.0f);
+	/*App->renderer->Blit(arrow, 204, 410, NULL, 1.0f);*/
+	//App->renderer->Blit(arrow, 204, 392, NULL, 1.0f);
+	//App->renderer->Blit(arrow, 204, 374, NULL, 1.0f);
+	//App->renderer->Blit(arrow, 204, 356, NULL, 1.0f);
+	//App->renderer->Blit(arrow, 204, 338, NULL, 1.0f);
+	//App->renderer->Blit(arrow, 204, 320, NULL, 1.0f);
+
+
+
+	//Tornado ramp
+	App->renderer->Blit(arrow, 59, 244, NULL, 1.0f, -35);
+	App->renderer->Blit(arrow, 50, 228, NULL, 1.0f, -35);
+	App->renderer->Blit(arrow, 41, 214, NULL, 1.0f, -35);
+
+	//Left curve
+	App->renderer->Blit(arrow, 87, 217, NULL, 1.0f, -33);
+	App->renderer->Blit(arrow, 113, 106, NULL, 1.0f, 60);
+	App->renderer->Blit(arrow, 129, 98, NULL, 1.0f, 75);
+	App->renderer->Blit(arrow, 148, 93, NULL, 1.0f, 90);
 	
+	//Right curve
+	App->renderer->Blit(arrow, 321, 216, NULL, 1.0f, 35);
+	App->renderer->Blit(arrow, 334, 163, NULL, 1.0f);
+	App->renderer->Blit(arrow, 328, 146, NULL, 1.0f, -15);
+
+	App->renderer->Blit(arrow, 295, 108, NULL, 1.0f, -60);
+	App->renderer->Blit(arrow, 278, 97, NULL, 1.0f, -75);
+	App->renderer->Blit(arrow, 258, 92, NULL, 1.0f, -90);
+
 
 	// Prepare for raycast ------------------------------------------------------
 	
