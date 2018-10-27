@@ -14,11 +14,12 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void CreateBall();
 
 public:
 
 	//Textures
-	SDL_Texture* ball;
+	SDL_Texture* ball_texture;
 	SDL_Texture* flipper;
 
 	//Player attributes
@@ -34,5 +35,7 @@ public:
 	PhysBody* rightPivot;
 	b2RevoluteJoint* rightJoint;
 
+private:
 
+	PhysBody * ball;
 };

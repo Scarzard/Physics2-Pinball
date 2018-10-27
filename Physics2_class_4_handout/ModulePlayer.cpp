@@ -8,7 +8,7 @@
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	ball = flipper = NULL;
+	ball_texture = flipper = NULL;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -18,14 +18,14 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
-	ball = App->textures->Load("Assets/ball.png");
+	ball_texture = App->textures->Load("Assets/ball.png");
 	flipper = App->textures->Load("Assets/flippers.png");
 
 	//Left flipper
 
 	b2RevoluteJointDef joint;
-	leftFlipper = App->physics->CreateRectangle(150, 485, 48, 30, 20 * DEGTORAD, b2_dynamicBody);   // Creates flipper to location
-	leftPivot = App->physics->CreateCircle(145, 478, 7, b2_staticBody);				// Pivot is needed to rotate flipper
+	leftFlipper = App->physics->CreateRectangle(150, 485, 48, 10, 20 * DEGTORAD, b2_dynamicBody);   // Creates flipper to location
+	leftPivot = App->physics->CreateCircle(153, 480, 7, b2_staticBody);				// Pivot is needed to rotate flipper
 	leftFlipper->body->SetGravityScale(20.0f);
 
 	joint.bodyA = leftFlipper->body;
@@ -33,8 +33,8 @@ bool ModulePlayer::Start()
 	joint.Initialize(joint.bodyA, joint.bodyB, leftFlipper->body->GetWorldCenter());
 
 
-	joint.localAnchorA.Set(PIXEL_TO_METERS(-22), PIXEL_TO_METERS(-15));		// Set pivot position correctly
-	joint.localAnchorB.Set(0, 0);
+	joint.localAnchorA.Set(PIXEL_TO_METERS(-20), PIXEL_TO_METERS(-4));		// Set flipper position correctly
+	joint.localAnchorB.Set(0,0);
 	joint.collideConnected = false;
 
 	joint.upperAngle = 45 * DEGTORAD;		//Sets angle limits for the flipper
@@ -71,6 +71,7 @@ bool ModulePlayer::Start()
 
 	//rightJoint = (b2RevoluteJoint*)App->physics->world->CreateJoint(&joint2);
 
+	CreateBall();
 
 	return true;
 }
@@ -79,10 +80,17 @@ bool ModulePlayer::Start()
 bool ModulePlayer::CleanUp()
 {
 	LOG("Unloading player");
-	App->textures->Unload(ball);
+	App->textures->Unload(ball_texture);
 	App->textures->Unload(flipper);
 
 	return true;
+}
+
+void ModulePlayer::CreateBall()
+{
+	// Create Ball
+	ball = App->physics->CreateCircle(153, 200, 8, b2_dynamicBody);
+	ball->listener = this;
 }
 
 // Update: draw background
@@ -98,6 +106,8 @@ update_status ModulePlayer::Update()
 	{
 		leftJoint->EnableMotor(false);
 	}
+
+	
 
 	//if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	//{
@@ -118,6 +128,13 @@ update_status ModulePlayer::Update()
 	rightFlipper->GetPosition(posX2, posY2);
 	App->renderer->Blit(flipper, posX2, posY2, NULL, 1.0f, leftFlipper->GetRotation() + 180);
 	*/
+
+	// Set Ball texture
+	ball->GetPosition(posX, posY);
+	App->renderer->Blit(ball_texture, posX, posY, NULL, 1.0f, ball->GetRotation());
+
+	// ----------------------------------------------------------
+
 
 	return UPDATE_CONTINUE;
 }

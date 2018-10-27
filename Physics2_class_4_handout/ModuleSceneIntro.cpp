@@ -186,7 +186,7 @@ void ModuleSceneIntro::Colliders_Draw()
 	};
 	large_nugget_right_ = App->physics->CreateChain(0, 0, LargeNugget_right, 28);
 
-	/*int LargeNugget_left[28] = {
+	int LargeNugget_left[28] = {
 		141, 483,
 		147, 476,
 		147, 468,
@@ -202,7 +202,7 @@ void ModuleSceneIntro::Colliders_Draw()
 		125, 476,
 		136, 483
 	};
-	large_nugget_left_ = App->physics->CreateChain(0, 0, LargeNugget_left, 28);*/
+	large_nugget_left_ = App->physics->CreateChain(0, 0, LargeNugget_left, 28);
 
 	int mid_ball[18] = {
 		206, 172,
