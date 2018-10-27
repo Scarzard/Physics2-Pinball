@@ -14,6 +14,8 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+
 	void CreateBall();
 
 public:
@@ -26,6 +28,9 @@ public:
 	//Player attributes
 	uint score = 0;
 	uint tries = 5;
+
+	//fx
+	uint flippers_FX;
 
 	//Flippers
 	PhysBody* leftFlipper;
