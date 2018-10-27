@@ -25,7 +25,7 @@ bool ModuleSceneIntro::Start()
 
 	map = App->textures->Load("Assets/Map.png");
 	arrow = App->textures->Load("Assets/arrow.png");
-
+	deathzone = App->physics->CreateRectangleSensor(210, 532, 59, 4);
 
 	Colliders_Draw();
 

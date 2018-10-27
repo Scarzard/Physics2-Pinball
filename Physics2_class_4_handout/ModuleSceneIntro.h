@@ -39,6 +39,8 @@ public:
 	PhysBody* nugget_bouncers_sensors[2];
 	bool touch_nuggets[2] = { false, false };
 
+	PhysBody* deathzone;
+
 
 	SDL_Texture* map;
 	SDL_Texture* arrow;

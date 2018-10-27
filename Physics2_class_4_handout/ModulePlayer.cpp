@@ -23,10 +23,11 @@ bool ModulePlayer::Start()
 	ball_texture = App->textures->Load("Assets/ball.png");
 	flipper = App->textures->Load("Assets/flippers.png");
 	flipper2 = App->textures->Load("Assets/flippers.png");
-
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
 
 	b2Vec2 axis(0.0f, 1.0f);
+
+	touching_deathzone = false;
 
 	//Left flipper
 
@@ -127,6 +128,8 @@ void ModulePlayer::CreateBall()
 
 void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB) 
 {
+	if (bodyB == App->scene_intro->deathzone) touching_deathzone = true;
+
 	for (int i = 0; i < 2; i++)//Loop to check collision with triangles
 	{
 		if (bodyB == App->scene_intro->nugget_bouncers_sensors[i])
@@ -189,6 +192,12 @@ update_status ModulePlayer::Update()
 
 	// ----------------------------------------------------------
 
+	if (touching_deathzone)
+	{
+		App->physics->world->DestroyBody(ball->body);
+		CreateBall();
+		touching_deathzone = false;
+	}
 
 	return UPDATE_CONTINUE;
 }
