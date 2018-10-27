@@ -35,6 +35,10 @@ public:
 	PhysBody* rightPivot;
 	b2RevoluteJoint* rightJoint;
 
+	PhysBody* launcherBody;
+	PhysBody* launcherPivot;
+	b2PrismaticJoint* launcherJoint;
+
 private:
 
 	PhysBody * ball;
