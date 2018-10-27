@@ -27,6 +27,12 @@ bool ModuleSceneIntro::Start()
 	arrow = App->textures->Load("Assets/arrow.png");
 	deathzone = App->physics->CreateRectangleSensor(210, 532, 59, 4);
 
+
+	central_counter = 0;
+	tornado_counter = 0;
+	leftcurve_counter = 0;
+	rightcurve_counter = 0;
+
 	Colliders_Draw();
 
 	return ret;
@@ -45,40 +51,31 @@ update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map, 0, 0, NULL, 1.0f);
 
-	//Arrows
-	//Central
-	//App->renderer->Blit(arrow, 204, 482, NULL, 1.0f);
-	//App->renderer->Blit(arrow, 204, 464, NULL, 1.0f);
-	//App->renderer->Blit(arrow, 204, 446, NULL, 1.0f);
-	//App->renderer->Blit(arrow, 204, 428, NULL, 1.0f);
-	/*App->renderer->Blit(arrow, 204, 410, NULL, 1.0f);*/
-	//App->renderer->Blit(arrow, 204, 392, NULL, 1.0f);
-	//App->renderer->Blit(arrow, 204, 374, NULL, 1.0f);
-	//App->renderer->Blit(arrow, 204, 356, NULL, 1.0f);
-	//App->renderer->Blit(arrow, 204, 338, NULL, 1.0f);
-	//App->renderer->Blit(arrow, 204, 320, NULL, 1.0f);
+	//Central Arrows ----------------------------------------------------------
+	App->renderer->Blit(arrow, 204, central_arrowPosY[central_counter / 10], NULL, 1.0f);
+	central_counter++;
+	if (central_counter > 79)
+		central_counter = 0;
 
 
+	//Tornado Arrows-----------------------------------------------------------
+	App->renderer->Blit(arrow, tornado_arrowPosX[tornado_counter / 15], tornado_arrowPosY[tornado_counter / 15], NULL, 1.0f, -35);
+	tornado_counter++;
+	if (tornado_counter > 40)
+		tornado_counter = 0;
 
-	//Tornado ramp
-	App->renderer->Blit(arrow, 59, 244, NULL, 1.0f, -35);
-	App->renderer->Blit(arrow, 50, 228, NULL, 1.0f, -35);
-	App->renderer->Blit(arrow, 41, 214, NULL, 1.0f, -35);
+	//Left curve Arrows --------------------------------------------------------
+	App->renderer->Blit(arrow, leftcurve_arrowPosX[leftcurve_counter / 10], leftcurve_arrowPosY[leftcurve_counter / 10], NULL, 1.0f, leftangle_arrow[leftcurve_counter / 10]);
+	leftcurve_counter++;
+	if (leftcurve_counter > 79)
+		leftcurve_counter = 0;
 
-	//Left curve
-	App->renderer->Blit(arrow, 87, 217, NULL, 1.0f, -33);
-	App->renderer->Blit(arrow, 113, 106, NULL, 1.0f, 60);
-	App->renderer->Blit(arrow, 129, 98, NULL, 1.0f, 75);
-	App->renderer->Blit(arrow, 148, 93, NULL, 1.0f, 90);
-	
-	//Right curve
-	App->renderer->Blit(arrow, 321, 216, NULL, 1.0f, 35);
-	App->renderer->Blit(arrow, 334, 163, NULL, 1.0f);
-	App->renderer->Blit(arrow, 328, 146, NULL, 1.0f, -15);
+	//Right curve Arrows --------------------------------------------------------
+	App->renderer->Blit(arrow, rightcurve_arrowPosX[rightcurve_counter / 10], rightcurve_arrowPosY[rightcurve_counter / 10], NULL, 1.0f, rightangle_arrow[rightcurve_counter / 10]);
+	rightcurve_counter++;
+	if (rightcurve_counter > 79)
+		rightcurve_counter = 0;
 
-	App->renderer->Blit(arrow, 295, 108, NULL, 1.0f, -60);
-	App->renderer->Blit(arrow, 278, 97, NULL, 1.0f, -75);
-	App->renderer->Blit(arrow, 258, 92, NULL, 1.0f, -90);
 
 
 	// Prepare for raycast ------------------------------------------------------

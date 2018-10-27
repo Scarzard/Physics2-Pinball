@@ -44,7 +44,24 @@ public:
 
 	SDL_Texture* map;
 	SDL_Texture* arrow;
-	int arrowPosY[10] = { 482 ,464 ,446 ,428 ,410 ,392 ,374 ,356 ,338 ,320 };
+	
+	//White Arrows animations
+	int central_arrowPosY[8] = { 446 ,428 ,410 ,392 ,374 ,356 ,338 ,320 };
+	int central_counter;
+
+	int tornado_arrowPosY[3] = { 244, 228, 214 };
+	int tornado_arrowPosX[3] = { 59, 50, 41 };
+	int tornado_counter;
+
+	int leftcurve_arrowPosX[8] = { 87, 600, 600, 600, 600, 113, 129, 148 };
+	int leftcurve_arrowPosY[8] = { 217, 600, 600, 600, 600, 106, 98, 93 };
+	int leftangle_arrow[8] = { -33, 0, 0, 0, 0, 60, 75, 90 };
+	int leftcurve_counter;
+
+	int rightcurve_arrowPosX[8] = { 321, 600, 334, 328, 600, 295, 278, 258 };
+	int rightcurve_arrowPosY[8] = { 216, 600, 163, 146, 600, 108, 97, 92 };
+	int rightangle_arrow[8] = { 35, 0, 0,-15, 0, -60, -75, -90 };
+	int rightcurve_counter;
 
 	uint bonus_fx;
 };
