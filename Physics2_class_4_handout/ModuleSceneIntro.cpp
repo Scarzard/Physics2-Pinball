@@ -232,7 +232,7 @@ void ModuleSceneIntro::Colliders_Draw()
 		215, 172,
 		208, 172
 	};
-	mid_ball_ = App->physics->CreateChain(0, 0, mid_ball, 18, 2.0f);
+	mid_ball_ = App->physics->CreateChain(0, 0, mid_ball, 18, 1.5f);
 
 	int left_ball[18] = {
 		164, 209,
@@ -245,7 +245,7 @@ void ModuleSceneIntro::Colliders_Draw()
 		173, 209,
 		166, 209
 	};
-	left_ball_ = App->physics->CreateChain(0, 0, left_ball, 18, 2.0f);
+	left_ball_ = App->physics->CreateChain(0, 0, left_ball, 18, 1.5f);
 
 	int right_ball[18] = {
 		248, 208,
@@ -258,7 +258,7 @@ void ModuleSceneIntro::Colliders_Draw()
 		257, 208,
 		250, 208
 	};
-	right_ball_ = App->physics->CreateChain(0, 0, right_ball, 18, 2.0f);
+	right_ball_ = App->physics->CreateChain(0, 0, right_ball, 18, 1.5f);
 
 	int Map_Border[208] = {
 	252, 81,

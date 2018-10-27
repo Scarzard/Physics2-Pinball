@@ -88,13 +88,13 @@ bool ModulePlayer::Start()
 	joint2.localAnchorB.Set(0, 0);
 	joint2.collideConnected = false;
 
-	joint2.upperTranslation = PIXEL_TO_METERS(100);
+	joint2.upperTranslation = PIXEL_TO_METERS(-100);
 	joint2.lowerTranslation = 0;
 	joint2.enableLimit = true;
 	
 	joint2.enableMotor = false;
 	joint2.motorSpeed = 5000;
-	joint2.maxMotorForce = 500;
+	joint2.maxMotorForce = 75;
 
 	launcherJoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&joint2);
 
@@ -117,7 +117,7 @@ bool ModulePlayer::CleanUp()
 void ModulePlayer::CreateBall()
 {
 	// Create Ball
-	ball = App->physics->CreateCircle(153, 200, 8, b2_dynamicBody);
+	ball = App->physics->CreateCircle(403, 200, 8, b2_dynamicBody);
 	ball->listener = this;
 }
 
