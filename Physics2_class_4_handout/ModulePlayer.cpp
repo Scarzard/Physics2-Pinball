@@ -53,12 +53,10 @@ bool ModulePlayer::CleanUp()
 void ModulePlayer::CreateBall(int x, int y, float vx, float vy)
 {
 	// Create Ball
-	if (lives > 0)
-	{
-		ball = App->physics->CreateCircle(x, y, 8, b2_dynamicBody, 0, vx, vy);
-		ball->listener = this;
-		App->scene_intro->touching_launcherSensor = true;
-	}
+	
+	ball = App->physics->CreateCircle(x, y, 8, b2_dynamicBody, 0, vx, vy);
+	ball->listener = this;
+	
 }
 
 void ModulePlayer::CreateLauncher()
@@ -276,14 +274,15 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		LOG("Reset lives");
-		lives = 5;	
-		App->physics->world->DestroyBody(ball->body);
+		if (lives > 0) App->physics->world->DestroyBody(ball->body);
+
+		lives = 5;
 		CreateBall(403, 380);
 		App->scene_intro->touching_deathzone = App->scene_intro->combo = App->scene_intro->touching_leftStar =
 			App->scene_intro->touching_middleStar = App->scene_intro->touching_rightStar = false;
 
 		leftKickerActivations = rightKickerActivations = 3;
-		
+		score = 0;
 		App->scene_intro->touching_launcherSensor = true;
 	}
 
@@ -299,7 +298,7 @@ update_status ModulePlayer::Update()
 
 	// Set Ball texture
 	ball->GetPosition(posX, posY);
-	App->renderer->Blit(ball_texture, posX, posY, NULL, 1.0f, ball->GetRotation());
+	if (lives > 0)  App->renderer->Blit(ball_texture, posX, posY, NULL, 1.0f, ball->GetRotation());
 
 	App->renderer->Blit(App->scene_intro->piece_tornado, 57, 104, NULL, 1.0f);
 
@@ -308,7 +307,9 @@ update_status ModulePlayer::Update()
 	if (App->scene_intro->touching_deathzone)
 	{
 		App->physics->world->DestroyBody(ball->body);
-		CreateBall(403, 380);
+		if(lives > 0) CreateBall(403, 380);
+
+		App->scene_intro->touching_launcherSensor = true;
 		App->scene_intro->touching_deathzone = false;
 	}
 	//Tornado Action
