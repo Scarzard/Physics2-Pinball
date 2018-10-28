@@ -22,7 +22,7 @@ public:
 public:
 	p2List<PhysBody*> pinball;
 
-	//Colliders
+	//Colliders ------------------------
 	PhysBody* nugget_right_;
 	PhysBody* bouncer_right_;
 	PhysBody* nugget_left_;
@@ -39,18 +39,24 @@ public:
 	PhysBody* top_left_nugget_;
 	PhysBody* top_right_nugget_;
 	PhysBody* Ball_Eater_;
+	//-----------------------------------
 
-	//sensors
+	//sensors --------------------------------
 	PhysBody* nugget_bouncers_sensors[2];
 	bool touch_nuggets[2] = { false, false };
 
 	PhysBody* deathzone;
+	bool touching_deathzone = false;
+
+	PhysBody* tornado;
+	bool touching_tornado = false;
+	//-----------------------------------------------
 
 
 	SDL_Texture* map;
 	SDL_Texture* arrow;
 	
-	//White Arrows animations
+	//White Arrows animations ---------------------------------------------------
 	int central_arrowPosY[8] = { 446 ,428 ,410 ,392 ,374 ,356 ,338 ,320 };
 	int central_counter;
 
@@ -67,6 +73,7 @@ public:
 	int rightcurve_arrowPosY[8] = { 216, 600, 163, 146, 600, 108, 97, 92 };
 	int rightangle_arrow[8] = { 35, 0, 0,-15, 0, -60, -75, -90 };
 	int rightcurve_counter;
+	//------------------------------------------------------------------------------
 
 	uint bonus_fx;
 };

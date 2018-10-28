@@ -25,8 +25,6 @@ bool ModulePlayer::Start()
 	flipper2 = App->textures->Load("Assets/flippers.png");
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
 
-	touching_deathzone = false;
-
 	CreateBall(403, 200);
 	CreateFlippers();
 	CreateLauncher();
@@ -138,17 +136,21 @@ void ModulePlayer::CreateFlippers()
 void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB) 
 {
 	if (bodyB == App->scene_intro->deathzone) {
-		touching_deathzone = true;
+		App->scene_intro->touching_deathzone = true;
 		tries -= 1;
 	}
 
-	for (int i = 0; i < 2; i++)//Loop to check collision with triangles
+	if (bodyB == App->scene_intro->tornado) {
+		App->scene_intro->touching_tornado = true;
+	}
+
+	/*for (int i = 0; i < 2; i++)
 	{
 		if (bodyB == App->scene_intro->nugget_bouncers_sensors[i])
 		{
 			App->scene_intro->touch_nuggets[i] = true;
 		}
-	}
+	}*/
 }
 
 
@@ -209,12 +211,19 @@ update_status ModulePlayer::Update()
 	App->renderer->Blit(ball_texture, posX, posY, NULL, 1.0f, ball->GetRotation());
 
 	// ----------------------------------------------------------
-
-	if (touching_deathzone)
+	//Ball to deathzone
+	if (App->scene_intro->touching_deathzone)
 	{
 		App->physics->world->DestroyBody(ball->body);
 		CreateBall(403, 200);
-		touching_deathzone = false;
+		App->scene_intro->touching_deathzone = false;
+	}
+	//Tornado Action
+	if (App->scene_intro->touching_tornado)
+	{
+		App->physics->world->DestroyBody(ball->body);
+		CreateBall(203, 71);
+		App->scene_intro->touching_tornado = false;
 	}
 
 	return UPDATE_CONTINUE;

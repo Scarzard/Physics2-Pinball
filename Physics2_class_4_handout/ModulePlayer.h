@@ -48,7 +48,7 @@ public:
 	b2PrismaticJoint* launcherJoint;
 	b2Vec2 axis;
 
-	bool touching_deathzone;
+	
 private:
 
 	PhysBody * ball;

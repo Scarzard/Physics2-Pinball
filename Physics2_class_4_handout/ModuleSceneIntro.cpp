@@ -25,7 +25,11 @@ bool ModuleSceneIntro::Start()
 
 	map = App->textures->Load("Assets/Map.png");
 	arrow = App->textures->Load("Assets/arrow.png");
+
+	//sensors--------------------
 	deathzone = App->physics->CreateRectangleSensor(210, 532, 59, 4);
+	tornado = App->physics->CreateRectangleSensor(52, 152, 14, 14);
+	//------------------------
 
 
 	central_counter = 0;
