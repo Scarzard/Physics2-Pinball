@@ -24,8 +24,8 @@ bool ModulePlayer::Start()
 	flipper = App->textures->Load("Assets/flippers.png");
 	flipper2 = App->textures->Load("Assets/flippers.png");
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
-	leftAutoKicker = App->physics->CreateRectangle(89, 425, 10, 10, 0, b2_staticBody, 1.5f);
-	rightAutoKicker = App->physics->CreateRectangle(327, 425, 10, 10, 0, b2_staticBody, 1.5f);
+	leftAutoKicker = App->physics->CreateRectangle(89, 425, 10, 10, 0, b2_staticBody, 2.0f);
+	rightAutoKicker = App->physics->CreateRectangle(327, 425, 10, 10, 0, b2_staticBody, 2.0f);
 
 	CreateBall(403, 200);
 	CreateFlippers();
@@ -72,13 +72,13 @@ void ModulePlayer::CreateLauncher()
 	joint.localAnchorB.Set(0, 0);
 	joint.collideConnected = false;
 
-	joint.upperTranslation = PIXEL_TO_METERS(-100);
+	joint.upperTranslation = PIXEL_TO_METERS(10);
 	joint.lowerTranslation = 0;
 	joint.enableLimit = true;
 
 	joint.enableMotor = false;
-	joint.motorSpeed = 5000;
-	joint.maxMotorForce = 150;
+	joint.motorSpeed = 100;
+	joint.maxMotorForce = 125;
 
 	launcherJoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&joint);
 }
