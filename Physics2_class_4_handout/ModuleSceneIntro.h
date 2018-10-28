@@ -38,6 +38,7 @@ public:
 	PhysBody* right_topbar_;
 	PhysBody* top_left_nugget_;
 	PhysBody* top_right_nugget_;
+	PhysBody* Ball_Eater_;
 
 	//sensors
 	PhysBody* nugget_bouncers_sensors[2];

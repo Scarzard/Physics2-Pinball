@@ -16,7 +16,9 @@ public:
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
-	void CreateBall();
+	void CreateBall(int x, int y);
+	void CreateFlippers();
+	void CreateLauncher();
 
 public:
 

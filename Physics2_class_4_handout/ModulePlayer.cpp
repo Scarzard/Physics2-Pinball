@@ -25,10 +25,66 @@ bool ModulePlayer::Start()
 	flipper2 = App->textures->Load("Assets/flippers.png");
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
 
-	b2Vec2 axis(0.0f, 1.0f);
-
 	touching_deathzone = false;
 
+	CreateBall(403, 200);
+	CreateFlippers();
+	CreateLauncher();
+
+	return true;
+}
+
+// Unload assets
+bool ModulePlayer::CleanUp()
+{
+	LOG("Unloading player");
+	App->textures->Unload(ball_texture);
+	App->textures->Unload(flipper);
+
+	return true;
+}
+
+void ModulePlayer::CreateBall(int x, int y)
+{
+	// Create Ball
+	if (tries > 0)
+	{
+		ball = App->physics->CreateCircle(x, y, 8, b2_dynamicBody);
+		ball->listener = this;
+	}
+}
+
+void ModulePlayer::CreateLauncher()
+{
+	b2Vec2 axis(0.0f, 1.0f);
+
+	// LAUNCHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	b2PrismaticJointDef joint;
+	launcherBody = App->physics->CreateRectangle(403, 440, 15, 5, 0, b2_dynamicBody);
+	launcherPivot = App->physics->CreateRectangle(395, 440, 15, 1, 0, b2_staticBody);
+
+	joint.bodyA = launcherBody->body;
+	joint.bodyB = launcherPivot->body;
+
+	joint.Initialize(joint.bodyA, joint.bodyB, launcherBody->body->GetWorldCenter(), axis);
+
+	joint.localAnchorA.Set(0, 0);
+	joint.localAnchorB.Set(0, 0);
+	joint.collideConnected = false;
+
+	joint.upperTranslation = PIXEL_TO_METERS(-100);
+	joint.lowerTranslation = 0;
+	joint.enableLimit = true;
+
+	joint.enableMotor = false;
+	joint.motorSpeed = 5000;
+	joint.maxMotorForce = 150;
+
+	launcherJoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&joint);
+}
+
+void ModulePlayer::CreateFlippers()
+{
 	//Left flipper
 
 	b2RevoluteJointDef joint;
@@ -77,55 +133,6 @@ bool ModulePlayer::Start()
 	joint.enableMotor = false;
 
 	rightJoint = (b2RevoluteJoint*)App->physics->world->CreateJoint(&joint);
-
-
-	// LAUNCHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	b2PrismaticJointDef joint2;
-	launcherBody = App->physics->CreateRectangle(403, 440, 15, 5, 0, b2_dynamicBody);
-	launcherPivot = App->physics->CreateRectangle(395, 440, 15, 1, 0, b2_staticBody);
-
-	joint2.bodyA = launcherBody->body;
-	joint2.bodyB = launcherPivot->body;
-
-	joint2.Initialize(joint2.bodyA, joint2.bodyB, launcherBody->body->GetWorldCenter(), axis);
-
-	joint2.localAnchorA.Set(0, 0);
-	joint2.localAnchorB.Set(0, 0);
-	joint2.collideConnected = false;
-
-	joint2.upperTranslation = PIXEL_TO_METERS(-100);
-	joint2.lowerTranslation = 0;
-	joint2.enableLimit = true;
-	
-	joint2.enableMotor = false;
-	joint2.motorSpeed = 5000;
-	joint2.maxMotorForce = 75;
-
-	launcherJoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&joint2);
-
-	CreateBall();
-
-	return true;
-}
-
-// Unload assets
-bool ModulePlayer::CleanUp()
-{
-	LOG("Unloading player");
-	App->textures->Unload(ball_texture);
-	App->textures->Unload(flipper);
-
-	return true;
-}
-
-void ModulePlayer::CreateBall()
-{
-	// Create Ball
-	if (tries > 0)
-	{
-		ball = App->physics->CreateCircle(403, 200, 8, b2_dynamicBody);
-		ball->listener = this;
-	}
 }
 
 void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB) 
@@ -206,7 +213,7 @@ update_status ModulePlayer::Update()
 	if (touching_deathzone)
 	{
 		App->physics->world->DestroyBody(ball->body);
-		CreateBall();
+		CreateBall(403, 200);
 		touching_deathzone = false;
 	}
 
