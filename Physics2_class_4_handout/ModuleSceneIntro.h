@@ -56,12 +56,21 @@ public:
 
 	PhysBody* leftkicker;
 	PhysBody* rightkicker;
+
+	PhysBody* leftStar;
+	bool touching_leftStar = false;
+	PhysBody* middleStar;
+	bool touching_middleStar = false;
+	PhysBody* rightStar;
+	bool touching_rightStar = false;
+
 	//-----------------------------------------------
 
 
 	SDL_Texture* map;
 	SDL_Texture* arrow;
 	SDL_Texture* piece_tornado;
+	SDL_Texture* star;
 	
 	//White Arrows animations ---------------------------------------------------
 	int central_arrowPosY[8] = { 446 ,428 ,410 ,392 ,374 ,356 ,338 ,320 };

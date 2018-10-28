@@ -26,6 +26,7 @@ bool ModuleSceneIntro::Start()
 	map = App->textures->Load("Assets/Map.png");
 	arrow = App->textures->Load("Assets/arrow.png");
 	piece_tornado = App->textures->Load("Assets/piece_tornado.png");
+	star = App->textures->Load("Assets/star.png");
 
 	//sensors--------------------
 	deathzone = App->physics->CreateRectangleSensor(210, 532, 59, 4);
@@ -33,6 +34,11 @@ bool ModuleSceneIntro::Start()
 	balleater_sense = App->physics->CreateRectangleSensor(210, 311, 36, 2); 
 	leftkicker = App->physics->CreateRectangleSensor(90, 410, 10, 10);
 	rightkicker = App->physics->CreateRectangleSensor(327, 410, 10, 10);
+
+	leftStar = App->physics->CreateRectangleSensor(175, 109, 18, 17);
+	middleStar = App->physics->CreateRectangleSensor(211, 103, 18, 17);
+	rightStar = App->physics->CreateRectangleSensor(250, 109, 18, 17);
+
 	//------------------------
 
 
@@ -85,6 +91,22 @@ update_status ModuleSceneIntro::Update()
 	if (rightcurve_counter > 79)
 		rightcurve_counter = 0;
 
+	if (touching_leftStar)
+	{
+		App->renderer->Blit(star, 165, 100);
+	}
+	if (touching_middleStar)
+	{
+		App->renderer->Blit(star, 201,94);
+	}
+	if (touching_rightStar)
+	{
+		App->renderer->Blit(star, 240, 100);
+	}
+
+	////leftStar = App->physics->CreateRectangleSensor(175, 109, 18, 17);
+	//middleStar = App->physics->CreateRectangleSensor(211, 103, 18, 17);
+	//rightStar = App->physics->CreateRectangleSensor(250, 109, 18, 17);
 	
 
 	

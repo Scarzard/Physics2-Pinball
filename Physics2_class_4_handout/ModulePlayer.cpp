@@ -150,6 +150,16 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 		App->scene_intro->touching_balleater = true;
 	}
 
+	if (bodyB == App->scene_intro->leftStar) {
+		App->scene_intro->touching_leftStar = true;
+	}
+	if (bodyB == App->scene_intro->middleStar) {
+		App->scene_intro->touching_middleStar = true;
+	}
+	if (bodyB == App->scene_intro->rightStar) {
+		App->scene_intro->touching_rightStar = true;
+	}
+
 	if (bodyB == leftAutoKicker)
 	{
 		leftKickerActivations -= 1;
@@ -259,6 +269,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 	if (i > 100)i = 0;
+
 
 
 	if (leftKickerActivations == 0)
