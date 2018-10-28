@@ -71,9 +71,15 @@ public:
 	PhysBody* launcherSensor;
 	bool touching_launcherSensor = true;
 
-
 	//-----------------------------------------------
 
+	PhysBody* leftBumper;
+	PhysBody* midBumper;
+	PhysBody* rightBumper;
+	bool combo = false;
+
+
+	//-----------------------------------------------
 
 	SDL_Texture* map;
 	SDL_Texture* arrow;

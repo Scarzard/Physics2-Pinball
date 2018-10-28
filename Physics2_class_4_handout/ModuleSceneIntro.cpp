@@ -43,7 +43,14 @@ bool ModuleSceneIntro::Start()
 	right_nugget_sens = App->physics->CreateRectangleSensor(266, 423, 50, 1, 118);
 	left_nugget_sens = App->physics->CreateRectangleSensor(157, 423, 50, 1, 65);
 
+	leftBumper = App->physics->CreateRectangleSensor(170, 220, 20, 20);
+	midBumper = App->physics->CreateRectangleSensor(211, 184, 20, 20);
+	rightBumper = App->physics->CreateRectangleSensor(253, 220, 20, 20);
 	//------------------------
+
+	/*left_ball_ = App->physics->CreateCircle(170, 220, 10, b2_staticBody, 1.2f);
+	mid_ball_ = App->physics->CreateCircle(211, 184, 10, b2_staticBody, 1.2f);
+	right_ball_ = App->physics->CreateCircle(253, 220, 10, b2_staticBody, 1.2f);*/
 
 
 	central_counter = 0;
@@ -108,10 +115,8 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(star, 240, 100);
 	}
 
-	////leftStar = App->physics->CreateRectangleSensor(175, 109, 18, 17);
-	//middleStar = App->physics->CreateRectangleSensor(211, 103, 18, 17);
-	//rightStar = App->physics->CreateRectangleSensor(250, 109, 18, 17);
-	
+	if (touching_leftStar && touching_middleStar && touching_rightStar)
+		combo = true;
 
 	
 	iPoint mouse;

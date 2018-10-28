@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModuleWindow.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleAudio.h"
 
@@ -27,11 +28,12 @@ bool ModulePlayer::Start()
 	ball_eater_FX = App->audio->LoadFx("Audio/fx_balleater.wav");
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
 	bouncers_FX = App->audio->LoadFx("Audio/fx_bouncer.wav");
+	kicker_fx = App->audio->LoadFx("Audio/fx_kicker.wav");
 
 	leftAutoKicker = App->physics->CreateRectangle(89, 425, 10, 10, 0, b2_staticBody, 2.0f);
 	rightAutoKicker = App->physics->CreateRectangle(327, 425, 10, 10, 0, b2_staticBody, 2.0f);
 
-	CreateBall(403, 350);
+	CreateBall(403, 380);
 	CreateFlippers();
 	CreateLauncher();
 
@@ -51,7 +53,7 @@ bool ModulePlayer::CleanUp()
 void ModulePlayer::CreateBall(int x, int y, float vx, float vy)
 {
 	// Create Ball
-	if (tries > 0)
+	if (lives > 0)
 	{
 		ball = App->physics->CreateCircle(x, y, 8, b2_dynamicBody, 0, vx, vy);
 		ball->listener = this;
@@ -145,17 +147,24 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 	//deathzone
 	if (bodyB == App->scene_intro->deathzone) {
 		App->scene_intro->touching_deathzone = true;
-		tries -= 1;
+		lives -= 1;
 	}
 
 	//tornado
 	if (bodyB == App->scene_intro->tornado) {
 		App->scene_intro->touching_tornado = true;
+		if (App->scene_intro->combo)
+			score += 4000;
+		else score += 2000;
 	}
 
 	//balleater
 	if (bodyB == App->scene_intro->balleater_sense) {
 		App->scene_intro->touching_balleater = true;
+		if(App->scene_intro->combo)
+		score += 1000;
+		else score += 500;
+
 	}
 
 	//Stars --------------------------------------
@@ -189,10 +198,16 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 	if (bodyB == App->scene_intro->right_nugget_sens)
 	{
 		App->scene_intro->touching_right_nugget = true;
+		if (App->scene_intro->combo)
+			score += 500;
+		else score += 250;
 	}
 	if (bodyB == App->scene_intro->left_nugget_sens)
 	{
 		App->scene_intro->touching_left_nugget = true;
+		if (App->scene_intro->combo)
+			score += 500;
+		else score += 250;
 	}
 }
 
@@ -203,23 +218,23 @@ update_status ModulePlayer::Update()
 {
 
 	//Inputs
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && tries > 0)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && lives > 0)
 	{
 		leftJoint->EnableMotor(true);
 		App->audio->PlayFx(flippers_FX);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP && tries > 0)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP && lives > 0)
 	{
 		leftJoint->EnableMotor(false);
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && tries > 0)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && lives > 0)
 	{
 		rightJoint->EnableMotor(true);
 		App->audio->PlayFx(flippers_FX);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP && tries > 0)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP && lives > 0)
 	{
 		rightJoint->EnableMotor(false);
 	}
@@ -227,6 +242,7 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->scene_intro->touching_launcherSensor)
 	{
 		launcherJoint->EnableMotor(true);
+		App->audio->PlayFx(kicker_fx);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
@@ -235,8 +251,8 @@ update_status ModulePlayer::Update()
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
-		LOG("Reset tries");
-		tries = 5;	
+		LOG("Reset lives");
+		lives = 5;	
 	}
 
 	//Blit left flipper
@@ -260,7 +276,7 @@ update_status ModulePlayer::Update()
 	if (App->scene_intro->touching_deathzone)
 	{
 		App->physics->world->DestroyBody(ball->body);
-		CreateBall(403, 350);
+		CreateBall(403, 380);
 		App->scene_intro->touching_deathzone = false;
 	}
 	//Tornado Action
