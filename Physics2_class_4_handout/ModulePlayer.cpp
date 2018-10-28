@@ -179,16 +179,21 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 	}
 	//Bumpers
 	if (bodyB == App->scene_intro->leftBumper) {
+		App->audio->PlayFx(bouncers_FX);
+
 		if (App->scene_intro->combo)
 			score += 200;
 		else score += 100;
 	}
 	if (bodyB == App->scene_intro->midBumper) {
+		App->audio->PlayFx(bouncers_FX);
 		if (App->scene_intro->combo)
 			score += 200;
 		else score += 100;
 	}
 	if (bodyB == App->scene_intro->rightBumper) {
+		App->audio->PlayFx(bouncers_FX);
+
 		if (App->scene_intro->combo)
 			score += 200;
 		else score += 100;
@@ -203,10 +208,12 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 	//Autokickers ----------------------
 	if (bodyB == leftAutoKicker)
 	{
+		App->audio->PlayFx(flippers_FX);
 		leftKickerActivations -= 1;
 	}
 	if (bodyB == rightAutoKicker)
 	{
+		App->audio->PlayFx(flippers_FX);
 		rightKickerActivations -= 1;
 	}
 	//-------------------------------------
