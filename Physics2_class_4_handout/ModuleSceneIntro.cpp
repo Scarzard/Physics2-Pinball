@@ -28,6 +28,8 @@ bool ModuleSceneIntro::Start()
 	piece_tornado = App->textures->Load("Assets/piece_tornado.png");
 	star = App->textures->Load("Assets/star.png");
 
+	App->audio->PlayMusic("Audio/music.ogg");
+
 	//sensors--------------------
 	deathzone = App->physics->CreateRectangleSensor(210, 532, 59, 4);
 	tornado = App->physics->CreateRectangleSensor(58, 158, 14, 14);
