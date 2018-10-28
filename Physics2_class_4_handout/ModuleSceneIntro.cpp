@@ -31,6 +31,8 @@ bool ModuleSceneIntro::Start()
 	deathzone = App->physics->CreateRectangleSensor(210, 532, 59, 4);
 	tornado = App->physics->CreateRectangleSensor(58, 158, 14, 14);
 	balleater_sense = App->physics->CreateRectangleSensor(210, 311, 36, 2); 
+	leftkicker = App->physics->CreateRectangleSensor(90, 410, 10, 10);
+	rightkicker = App->physics->CreateRectangleSensor(327, 410, 10, 10);
 	//------------------------
 
 

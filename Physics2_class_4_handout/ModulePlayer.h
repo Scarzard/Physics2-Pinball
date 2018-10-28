@@ -36,6 +36,14 @@ public:
 	//fx
 	uint flippers_FX;
 
+	//kicker counter
+	uint leftKickerActivations = 3;
+	uint rightKickerActivations = 3;
+
+	//kickers
+	PhysBody* leftAutoKicker;
+	PhysBody* rightAutoKicker;
+
 	//Flippers
 	PhysBody* leftFlipper;
 	PhysBody* leftPivot;

@@ -24,6 +24,8 @@ bool ModulePlayer::Start()
 	flipper = App->textures->Load("Assets/flippers.png");
 	flipper2 = App->textures->Load("Assets/flippers.png");
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
+	leftAutoKicker = App->physics->CreateRectangle(89, 425, 10, 10, 0, b2_staticBody, 1.5f);
+	rightAutoKicker = App->physics->CreateRectangle(327, 425, 10, 10, 0, b2_staticBody, 1.5f);
 
 	CreateBall(403, 200);
 	CreateFlippers();
@@ -148,6 +150,18 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 		App->scene_intro->touching_balleater = true;
 	}
 
+	if (bodyB == leftAutoKicker)
+	{
+		leftKickerActivations -= 1;
+	}
+
+
+	if (bodyB == rightAutoKicker)
+	{
+		rightKickerActivations -= 1;
+	}
+
+
 	/*for (int i = 0; i < 2; i++)
 	{
 		if (bodyB == App->scene_intro->nugget_bouncers_sensors[i])
@@ -245,6 +259,24 @@ update_status ModulePlayer::Update()
 		}
 	}
 	if (i > 100)i = 0;
+
+
+	if (leftKickerActivations == 0)
+
+	{
+		App->physics->world->DestroyBody(leftAutoKicker->body);
+
+		leftAutoKicker = App->physics->CreateRectangle(1000, 1000, 10, 10, 0, b2_staticBody, 1.1f);
+
+	}
+
+	if (rightKickerActivations == 0)
+
+	{
+		App->physics->world->DestroyBody(rightAutoKicker->body);
+
+		rightAutoKicker = App->physics->CreateRectangle(-15, -15, 10, 10, 0, b2_staticBody, 1.1f);
+	}
 
 	return UPDATE_CONTINUE;
 }

@@ -53,6 +53,9 @@ public:
 
 	PhysBody* balleater_sense;
 	bool touching_balleater = false;
+
+	PhysBody* leftkicker;
+	PhysBody* rightkicker;
 	//-----------------------------------------------
 
 
