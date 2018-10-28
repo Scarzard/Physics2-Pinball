@@ -175,7 +175,7 @@ void ModuleSceneIntro::Colliders_Draw()
 	};
 	large_nugget_left_ = App->physics->CreateChain(0, 0, LargeNugget_left, 28);
 
-	int mid_ball[18] = {
+/*	int mid_ball[18] = {
 		206, 172,
 		200, 179,
 		200, 188,
@@ -213,6 +213,10 @@ void ModuleSceneIntro::Colliders_Draw()
 		250, 208
 	};
 	right_ball_ = App->physics->CreateChain(0, 0, right_ball, 18, 1.2f);
+	*/
+	left_ball_ = App->physics->CreateCircle(170, 220, 10, b2_staticBody, 1.2f);
+	mid_ball_ = App->physics->CreateCircle(211, 184, 10, b2_staticBody, 1.2f);
+	right_ball_ = App->physics->CreateCircle(253, 220, 10, b2_staticBody, 1.2f);
 
 	int Map_Border[208] = {
 	252, 81,
