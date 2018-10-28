@@ -31,7 +31,7 @@ bool ModulePlayer::Start()
 	leftAutoKicker = App->physics->CreateRectangle(89, 425, 10, 10, 0, b2_staticBody, 2.0f);
 	rightAutoKicker = App->physics->CreateRectangle(327, 425, 10, 10, 0, b2_staticBody, 2.0f);
 
-	CreateBall(403, 200);
+	CreateBall(403, 350);
 	CreateFlippers();
 	CreateLauncher();
 
@@ -260,7 +260,7 @@ update_status ModulePlayer::Update()
 	if (App->scene_intro->touching_deathzone)
 	{
 		App->physics->world->DestroyBody(ball->body);
-		CreateBall(403, 200);
+		CreateBall(403, 350);
 		App->scene_intro->touching_deathzone = false;
 	}
 	//Tornado Action
