@@ -27,11 +27,13 @@ bool ModulePlayer::Start()
 	ball_eater_FX = App->audio->LoadFx("Audio/fx_balleater.wav");
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
 	bouncers_FX = App->audio->LoadFx("Audio/fx_bouncer.wav");
+	kicker_fx = App->audio->LoadFx("Audio/fx_kicker.wav");
+
 
 	leftAutoKicker = App->physics->CreateRectangle(89, 425, 10, 10, 0, b2_staticBody, 2.0f);
 	rightAutoKicker = App->physics->CreateRectangle(327, 425, 10, 10, 0, b2_staticBody, 2.0f);
 
-	CreateBall(403, 350);
+	CreateBall(403, 380);
 	CreateFlippers();
 	CreateLauncher();
 
@@ -227,6 +229,7 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->scene_intro->touching_launcherSensor)
 	{
 		launcherJoint->EnableMotor(true);
+		App->audio->PlayFx(kicker_fx);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
@@ -260,7 +263,7 @@ update_status ModulePlayer::Update()
 	if (App->scene_intro->touching_deathzone)
 	{
 		App->physics->world->DestroyBody(ball->body);
-		CreateBall(403, 350);
+		CreateBall(403, 380);
 		App->scene_intro->touching_deathzone = false;
 	}
 	//Tornado Action
