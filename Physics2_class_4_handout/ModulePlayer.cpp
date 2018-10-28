@@ -270,12 +270,21 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
 		launcherJoint->EnableMotor(false);
+
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		LOG("Reset lives");
 		lives = 5;	
+		App->physics->world->DestroyBody(ball->body);
+		CreateBall(403, 380);
+		App->scene_intro->touching_deathzone = App->scene_intro->combo = App->scene_intro->touching_leftStar =
+			App->scene_intro->touching_middleStar = App->scene_intro->touching_rightStar = false;
+
+		leftKickerActivations = rightKickerActivations = 3;
+		
+		App->scene_intro->touching_launcherSensor = true;
 	}
 
 	//Blit left flipper
@@ -330,7 +339,6 @@ update_status ModulePlayer::Update()
 	if (i > 100)i = 0;
 
 
-
 	if (leftKickerActivations == 0)
 
 	{
@@ -361,7 +369,7 @@ update_status ModulePlayer::Update()
 	}
 
 	
-	title->create("Pepsi Pinball / Score: %d / Lives left: %d", score, lives);
+	title->create("Pepsi Pinball / Score: %d / Lives left: %d / %d / %d", score, lives, leftKickerActivations, rightKickerActivations);
 	App->window->SetTitle(title->GetString());
 	
 
