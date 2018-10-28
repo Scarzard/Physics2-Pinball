@@ -210,6 +210,8 @@ update_status ModulePlayer::Update()
 	ball->GetPosition(posX, posY);
 	App->renderer->Blit(ball_texture, posX, posY, NULL, 1.0f, ball->GetRotation());
 
+	App->renderer->Blit(App->scene_intro->piece_tornado, 57, 104, NULL, 1.0f);
+
 	// ----------------------------------------------------------
 	//Ball to deathzone
 	if (App->scene_intro->touching_deathzone)

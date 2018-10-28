@@ -25,6 +25,7 @@ bool ModuleSceneIntro::Start()
 
 	map = App->textures->Load("Assets/Map.png");
 	arrow = App->textures->Load("Assets/arrow.png");
+	piece_tornado = App->textures->Load("Assets/piece_tornado.png");
 
 	//sensors--------------------
 	deathzone = App->physics->CreateRectangleSensor(210, 532, 59, 4);
@@ -80,6 +81,8 @@ update_status ModuleSceneIntro::Update()
 	rightcurve_counter++;
 	if (rightcurve_counter > 79)
 		rightcurve_counter = 0;
+
+	
 
 	
 	iPoint mouse;
