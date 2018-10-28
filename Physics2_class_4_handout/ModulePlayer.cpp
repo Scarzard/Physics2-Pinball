@@ -55,6 +55,7 @@ void ModulePlayer::CreateBall(int x, int y, float vx, float vy)
 	{
 		ball = App->physics->CreateCircle(x, y, 8, b2_dynamicBody, 0, vx, vy);
 		ball->listener = this;
+		App->scene_intro->touching_launcherSensor = true;
 	}
 }
 
@@ -169,6 +170,11 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 	}
 	//------------------------------------------------
 
+	//Launcher sensor
+	if (bodyB == App->scene_intro->launcherSensor) {
+		App->scene_intro->touching_launcherSensor = false;
+	}
+
 	//Autokickers ----------------------
 	if (bodyB == leftAutoKicker)
 	{
@@ -218,11 +224,11 @@ update_status ModulePlayer::Update()
 		rightJoint->EnableMotor(false);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN && App->scene_intro->touching_launcherSensor)
 	{
 		launcherJoint->EnableMotor(true);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
 		launcherJoint->EnableMotor(false);
 	}

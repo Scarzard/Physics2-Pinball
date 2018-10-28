@@ -68,6 +68,10 @@ public:
 	PhysBody* rightStar;
 	bool touching_rightStar = false;
 
+	PhysBody* launcherSensor;
+	bool touching_launcherSensor = true;
+
+
 	//-----------------------------------------------
 
 

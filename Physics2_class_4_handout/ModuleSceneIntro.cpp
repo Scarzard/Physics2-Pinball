@@ -35,9 +35,10 @@ bool ModuleSceneIntro::Start()
 	leftkicker = App->physics->CreateRectangleSensor(90, 410, 10, 10);
 	rightkicker = App->physics->CreateRectangleSensor(327, 410, 10, 10);
 
-	leftStar = App->physics->CreateRectangleSensor(175, 109, 18, 17);
-	middleStar = App->physics->CreateRectangleSensor(211, 103, 18, 17);
-	rightStar = App->physics->CreateRectangleSensor(250, 109, 18, 17);
+	launcherSensor = App->physics->CreateRectangleSensor(396, 125, 20, 20);
+	leftStar = App->physics->CreateRectangleSensor(175, 131, 8, 22);
+	middleStar = App->physics->CreateRectangleSensor(211, 122, 8, 22);
+	rightStar = App->physics->CreateRectangleSensor(248, 131, 8, 22);
 
 	right_nugget_sens = App->physics->CreateRectangleSensor(266, 423, 50, 1, 118);
 	left_nugget_sens = App->physics->CreateRectangleSensor(157, 423, 50, 1, 65);
