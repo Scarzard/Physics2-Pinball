@@ -103,7 +103,6 @@ bool ModulePlayer::Start()
 
 	launcherJoint = (b2PrismaticJoint*)App->physics->world->CreateJoint(&joint2);
 
-
 	CreateBall();
 
 	return true;
@@ -122,13 +121,19 @@ bool ModulePlayer::CleanUp()
 void ModulePlayer::CreateBall()
 {
 	// Create Ball
-	ball = App->physics->CreateCircle(403, 200, 8, b2_dynamicBody);
-	ball->listener = this;
+	if (tries > 0)
+	{
+		ball = App->physics->CreateCircle(403, 200, 8, b2_dynamicBody);
+		ball->listener = this;
+	}
 }
 
 void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB) 
 {
-	if (bodyB == App->scene_intro->deathzone) touching_deathzone = true;
+	if (bodyB == App->scene_intro->deathzone) {
+		touching_deathzone = true;
+		tries -= 1;
+	}
 
 	for (int i = 0; i < 2; i++)//Loop to check collision with triangles
 	{
@@ -146,23 +151,23 @@ update_status ModulePlayer::Update()
 {
 
 	//Inputs
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && tries > 0)
 	{
 		leftJoint->EnableMotor(true);
 		App->audio->PlayFx(flippers_FX);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP && tries > 0)
 	{
 		leftJoint->EnableMotor(false);
 	}
 
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && tries > 0)
 	{
 		rightJoint->EnableMotor(true);
 		App->audio->PlayFx(flippers_FX);
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP && tries > 0)
 	{
 		rightJoint->EnableMotor(false);
 	}
@@ -174,6 +179,12 @@ update_status ModulePlayer::Update()
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
 		launcherJoint->EnableMotor(false);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		LOG("Reset tries");
+		tries = 5;	
 	}
 
 	//Blit left flipper
