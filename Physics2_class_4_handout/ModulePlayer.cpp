@@ -29,6 +29,10 @@ bool ModulePlayer::Start()
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
 	bouncers_FX = App->audio->LoadFx("Audio/fx_bouncer.wav");
 	kicker_fx = App->audio->LoadFx("Audio/fx_kicker.wav");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a014934cca23d281e02f018805dd00b23bb2fb6
 
 	leftAutoKicker = App->physics->CreateRectangle(89, 425, 10, 10, 0, b2_staticBody, 2.0f);
 	rightAutoKicker = App->physics->CreateRectangle(327, 425, 10, 10, 0, b2_staticBody, 2.0f);
