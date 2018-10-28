@@ -42,12 +42,12 @@ bool ModulePlayer::CleanUp()
 	return true;
 }
 
-void ModulePlayer::CreateBall(int x, int y)
+void ModulePlayer::CreateBall(int x, int y, float vx, float vy)
 {
 	// Create Ball
 	if (tries > 0)
 	{
-		ball = App->physics->CreateCircle(x, y, 8, b2_dynamicBody);
+		ball = App->physics->CreateCircle(x, y, 8, b2_dynamicBody, 0, vx, vy);
 		ball->listener = this;
 	}
 }
@@ -144,6 +144,10 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 		App->scene_intro->touching_tornado = true;
 	}
 
+	if (bodyB == App->scene_intro->balleater_sense) {
+		App->scene_intro->touching_balleater = true;
+	}
+
 	/*for (int i = 0; i < 2; i++)
 	{
 		if (bodyB == App->scene_intro->nugget_bouncers_sensors[i])
@@ -227,6 +231,20 @@ update_status ModulePlayer::Update()
 		CreateBall(203, 71);
 		App->scene_intro->touching_tornado = false;
 	}
+	
+	//Ball Eater
+	if (App->scene_intro->touching_balleater)
+	{
+		i++;
+		if(i == 1)
+			App->physics->world->DestroyBody(ball->body);
+		if (i == 100)
+		{
+			CreateBall(203, 325, 2.0f, 10.0f);
+			App->scene_intro->touching_balleater = false;
+		}
+	}
+	if (i > 100)i = 0;
 
 	return UPDATE_CONTINUE;
 }

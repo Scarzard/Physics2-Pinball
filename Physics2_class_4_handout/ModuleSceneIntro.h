@@ -50,6 +50,9 @@ public:
 
 	PhysBody* tornado;
 	bool touching_tornado = false;
+
+	PhysBody* balleater_sense;
+	bool touching_balleater = false;
 	//-----------------------------------------------
 
 

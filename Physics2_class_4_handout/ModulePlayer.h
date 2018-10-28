@@ -16,11 +16,13 @@ public:
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
-	void CreateBall(int x, int y);
+	void CreateBall(int x, int y, float vx = 0, float vy = 0);
 	void CreateFlippers();
 	void CreateLauncher();
 
 public:
+
+	int i = 0;
 
 	//Textures
 	SDL_Texture* ball_texture;
