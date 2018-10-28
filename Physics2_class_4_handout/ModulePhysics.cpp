@@ -256,56 +256,14 @@ update_status ModulePhysics::PostUpdate()
 				break;
 			}
 
-			// TODO 1: If mouse button 1 is pressed ...
-			// test if the current body contains mouse position
-			if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
-			{
-				if (f->TestPoint(mouse_pos))
-				{
-					body_clicked = b;
-				}
-			}	
+				
 		}
 	}
 
-	// If a body was selected we will attach a mouse joint to it
-	// so we can pull it around
-	// TODO 2: If a body was selected, create a mouse joint
-	// using mouse_joint class property
-	if (body_clicked != nullptr)
-	{
-		b2MouseJointDef def;
-		def.bodyA = ground;
-		def.bodyB = body_clicked;
-		def.target = mouse_pos;
-		def.dampingRatio = 0.5f;
-		def.frequencyHz = 2.0f;
-		def.maxForce = 100.0f * body_clicked->GetMass();
-		mouse_joint = (b2MouseJoint*)world->CreateJoint(&def);
-	}
+	
 
-	// TODO 3: If the player keeps pressing the mouse button, update
-	// target position and draw a red line between both anchor points
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && body_clicked!=nullptr)
-	{
-		mouse_joint->SetTarget(mouse_pos);
 
-		App->renderer->DrawLine(METERS_TO_PIXELS(mouse_joint->GetTarget().x), 
-								METERS_TO_PIXELS(mouse_joint->GetTarget().y),
-								METERS_TO_PIXELS(mouse_joint->GetAnchorB().x),
-								METERS_TO_PIXELS(mouse_joint->GetAnchorB().y),
-								255, 255, 0);
-		
-		
-	}
 
-	// TODO 4: If the player releases the mouse button, destroy the joint
-
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP && body_clicked != nullptr)
-	{
-		world->DestroyJoint(mouse_joint);
-		mouse_joint = nullptr;
-	}
 
 
 
