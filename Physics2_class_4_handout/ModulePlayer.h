@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "Box2D/Box2D/Box2D.h"
 #include <string>
+#include "p2SString.h"
 
 class ModulePlayer : public Module
 {
@@ -65,4 +66,5 @@ public:
 private:
 
 	PhysBody * ball;
+	p2SString* title = new p2SString("Pepsi Pinball / Score: %d", score);
 };
