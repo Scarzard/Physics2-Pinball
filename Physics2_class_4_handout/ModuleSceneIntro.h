@@ -42,9 +42,6 @@ public:
 	//-----------------------------------
 
 	//sensors --------------------------------
-	PhysBody* nugget_bouncers_sensors[2];
-	bool touch_nuggets[2] = { false, false };
-
 	PhysBody* deathzone;
 	bool touching_deathzone = false;
 
@@ -53,6 +50,13 @@ public:
 
 	PhysBody* balleater_sense;
 	bool touching_balleater = false;
+
+	PhysBody* right_nugget_sens;
+	bool touching_right_nugget = false;
+
+	PhysBody* left_nugget_sens;
+	bool touching_left_nugget = false;
+	//--------------------------------------------
 
 	PhysBody* leftkicker;
 	PhysBody* rightkicker;

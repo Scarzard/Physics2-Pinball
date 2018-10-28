@@ -44,7 +44,7 @@ public:
 
 	PhysBody* CreateCircle(int x, int y, int radius, b2BodyType bodyType, float restitution = 0, float vx = 0, float vy = 0);
 	PhysBody* CreateRectangle(int x, int y, int width, int height, float angle, b2BodyType bodyType, float restitution = 0);
-	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
+	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, float angle = 0);
 	PhysBody* CreateChain(int x, int y, int* points, int size, float restitution = 0);
 
 	// b2ContactListener ---

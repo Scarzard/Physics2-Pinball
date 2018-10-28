@@ -35,6 +35,8 @@ public:
 
 	//fx
 	uint flippers_FX;
+	uint bouncers_FX;
+	uint ball_eater_FX;
 
 	//kicker counter
 	uint leftKickerActivations = 3;

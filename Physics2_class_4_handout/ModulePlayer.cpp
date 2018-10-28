@@ -23,7 +23,11 @@ bool ModulePlayer::Start()
 	ball_texture = App->textures->Load("Assets/ball.png");
 	flipper = App->textures->Load("Assets/flippers.png");
 	flipper2 = App->textures->Load("Assets/flippers.png");
+
+	ball_eater_FX = App->audio->LoadFx("Audio/fx_balleater.wav");
 	flippers_FX = App->audio->LoadFx("Audio/fx_flipper.wav");
+	bouncers_FX = App->audio->LoadFx("Audio/fx_bouncer.wav");
+
 	leftAutoKicker = App->physics->CreateRectangle(89, 425, 10, 10, 0, b2_staticBody, 2.0f);
 	rightAutoKicker = App->physics->CreateRectangle(327, 425, 10, 10, 0, b2_staticBody, 2.0f);
 
@@ -137,19 +141,23 @@ void ModulePlayer::CreateFlippers()
 
 void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB) 
 {
+	//deathzone
 	if (bodyB == App->scene_intro->deathzone) {
 		App->scene_intro->touching_deathzone = true;
 		tries -= 1;
 	}
 
+	//tornado
 	if (bodyB == App->scene_intro->tornado) {
 		App->scene_intro->touching_tornado = true;
 	}
 
+	//balleater
 	if (bodyB == App->scene_intro->balleater_sense) {
 		App->scene_intro->touching_balleater = true;
 	}
 
+	//Stars --------------------------------------
 	if (bodyB == App->scene_intro->leftStar) {
 		App->scene_intro->touching_leftStar = true;
 	}
@@ -159,26 +167,27 @@ void ModulePlayer::OnCollision(PhysBody * bodyA, PhysBody * bodyB)
 	if (bodyB == App->scene_intro->rightStar) {
 		App->scene_intro->touching_rightStar = true;
 	}
+	//------------------------------------------------
 
+	//Autokickers ----------------------
 	if (bodyB == leftAutoKicker)
 	{
 		leftKickerActivations -= 1;
 	}
-
-
 	if (bodyB == rightAutoKicker)
 	{
 		rightKickerActivations -= 1;
 	}
-
-
-	/*for (int i = 0; i < 2; i++)
+	//-------------------------------------
+	
+	if (bodyB == App->scene_intro->right_nugget_sens)
 	{
-		if (bodyB == App->scene_intro->nugget_bouncers_sensors[i])
-		{
-			App->scene_intro->touch_nuggets[i] = true;
-		}
-	}*/
+		App->scene_intro->touching_right_nugget = true;
+	}
+	if (bodyB == App->scene_intro->left_nugget_sens)
+	{
+		App->scene_intro->touching_left_nugget = true;
+	}
 }
 
 
@@ -267,6 +276,11 @@ update_status ModulePlayer::Update()
 			CreateBall(203, 325, 2.0f, 10.0f);
 			App->scene_intro->touching_balleater = false;
 		}
+		else if (i == 60)
+		{
+			//fx
+			App->audio->PlayFx(ball_eater_FX);
+		}
 	}
 	if (i > 100)i = 0;
 
@@ -288,6 +302,19 @@ update_status ModulePlayer::Update()
 
 		rightAutoKicker = App->physics->CreateRectangle(-15, -15, 10, 10, 0, b2_staticBody, 1.1f);
 	}
+
+	if (App->scene_intro->touching_right_nugget)
+	{
+		App->audio->PlayFx(bouncers_FX);
+		App->scene_intro->touching_right_nugget = false;
+
+	}
+	if (App->scene_intro->touching_left_nugget)
+	{
+		App->audio->PlayFx(bouncers_FX);
+		App->scene_intro->touching_left_nugget = false;
+	}
+
 
 	return UPDATE_CONTINUE;
 }

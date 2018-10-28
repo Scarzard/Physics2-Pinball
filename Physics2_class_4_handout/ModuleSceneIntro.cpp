@@ -39,6 +39,9 @@ bool ModuleSceneIntro::Start()
 	middleStar = App->physics->CreateRectangleSensor(211, 103, 18, 17);
 	rightStar = App->physics->CreateRectangleSensor(250, 109, 18, 17);
 
+	right_nugget_sens = App->physics->CreateRectangleSensor(266, 423, 50, 1, 118);
+	left_nugget_sens = App->physics->CreateRectangleSensor(157, 423, 50, 1, 65);
+
 	//------------------------
 
 
