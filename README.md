@@ -42,12 +42,14 @@ Can be found in this link: https://y0x.com/pepsi-max-pinball
 	- Score is shown in-game.
 	- All the balls are spawned at the beginning.
 	- The tornado situated on the left makes the ball spin and when it falls to the hole it spawns on top of the map. 
+	- Animations of the kickers.
 
 - Our game:
 
 	- Score is shown in the tilte with the number of lifes.
 	- One ball is spawned and respawned when the player loses one life.
 	- The tornado only spawns the ball on top of the map when it falls to the hole.
+	- The animations of the kickers are not done.
 
 ### Combo implemented
 
