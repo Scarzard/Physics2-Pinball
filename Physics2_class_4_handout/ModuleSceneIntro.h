@@ -34,6 +34,10 @@ public:
 	PhysBody* right_ball_;
 	PhysBody* map_border_;
 	PhysBody* Collider_in_Spawn_;
+	PhysBody* left_topbar_;
+	PhysBody* right_topbar_;
+	PhysBody* top_left_nugget_;
+	PhysBody* top_right_nugget_;
 
 	//sensors
 	PhysBody* nugget_bouncers_sensors[2];

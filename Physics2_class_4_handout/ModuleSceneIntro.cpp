@@ -336,6 +336,71 @@ void ModuleSceneIntro::Colliders_Draw()
 	Collider_in_Spawn_ = App->physics->CreateChain(0, 0, Collider_in_Spawn, 16);
 
 
+	int left_topbar[16] = {
+		190, 107,
+		186, 111,
+		186, 136,
+		190, 141,
+		195, 141,
+		198, 136,
+		198, 111,
+		195, 107
+	};
+	left_topbar_ = App->physics->CreateChain(0, 0, left_topbar, 16);
 
-	
+	int right_topbar[16] = {
+		227, 107,
+		224, 111,
+		224, 136,
+		227, 140,
+		232, 140,
+		235, 136,
+		235, 111,
+		232, 107
+	};
+
+	right_topbar_ = App->physics->CreateChain(0, 0, right_topbar, 16);
+
+	int top_left_nugget[32] = {
+		153, 121,
+		158, 131,
+		155, 144,
+		142, 150,
+		118, 159,
+		109, 168,
+		107, 181,
+		111, 197,
+		119, 219,
+		116, 225,
+		109, 225,
+		101, 214,
+		99, 201,
+		111, 130,
+		136, 118,
+		149, 118
+	};
+	top_left_nugget_ = App->physics->CreateChain(0, 0, top_left_nugget, 32);
+
+	int top_right_nugget[38] = {
+		282, 116,
+		271, 118,
+		263, 128,
+		265, 143,
+		284, 152,
+		299, 158,
+		309, 165,
+		314, 176,
+		312, 189,
+		303, 218,
+		305, 226,
+		313, 225,
+		322, 208,
+		329, 180,
+		329, 166,
+		325, 154,
+		315, 138,
+		302, 125,
+		292, 119
+	};
+	top_right_nugget_ = App->physics->CreateChain(0, 0, top_right_nugget, 38);
 }
